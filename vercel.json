@@ -1,8 +1,6 @@
 {
   "version": 2,
-  "env": {
-    "MONGO_URI": "@mongodb+srv://vinh:teo0966533714@cluster0.zl2ae4t.mongodb.net/test"
-  },
+
   "builds": [
     {
       "src": "src/main.ts",
