@@ -5,6 +5,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model, ObjectId } from "mongoose";
 import { CreateUserDto } from "src/users/dto/create-users.dto";
 import { UpdateUserDto } from "src/users/dto/update-users.dto";
+import * as bcrypt from "bcryptjs";
 
 import { User, UserDocument } from "./schemas/users.schema";
 // import { User, UserDocument } from './schemas/user.schema';
@@ -18,7 +19,10 @@ export class UserService {
   constructor(@InjectModel(User.name) private UserModel: Model<UserDocument>) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const createUser = new this.UserModel(createUserDto);
+    const { password, ...rest } = createUserDto;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const createUserWithHashPass = { ...rest, password: hashedPassword };
+    const createUser = new this.UserModel(createUserWithHashPass);
 
     return createUser.save();
   }
@@ -31,7 +35,7 @@ export class UserService {
     return this.UserModel.find()
       .limit(limit)
       .skip(limit * (page - 1))
-      .sort({ accountName: "desc" })
+      .sort({ userName: "desc" })
       .exec();
   }
 
@@ -74,9 +78,9 @@ export class UserService {
     return this.UserModel.findOne({ email });
   }
 
-  async findByAccountName(accountName: string): Promise<User> {
-    return this.UserModel.findOne({ accountName });
-  }
+  // async findByAccountName(accountName: string): Promise<User> {
+  //   return this.UserModel.findOne({ accountName });
+  // }
 
   async search(keyWord: any, limit: number, page: number): Promise<User[]> {
     return this.UserModel.find({
@@ -84,12 +88,12 @@ export class UserService {
         { email: { $regex: keyWord, $options: "i" } },
         { phoneNumber: { $regex: keyWord, $options: "i" } },
         { userName: { $regex: keyWord, $options: "i" } },
-        { accountName: { $regex: keyWord, $options: "i" } },
+        { userName: { $regex: keyWord, $options: "i" } },
       ],
     })
       .limit(limit)
       .skip(limit * (page - 1))
-      .sort({ accountName: "desc" })
+      .sort({ userName: "desc" })
       .exec();
   }
 }

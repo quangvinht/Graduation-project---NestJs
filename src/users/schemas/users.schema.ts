@@ -1,10 +1,11 @@
 /* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument } from "mongoose";
+import { ObjectId } from "mongoose";
 
 export type UserDocument = HydratedDocument<User>;
 
-@Schema()
+@Schema({ timestamps: true })
 export class User {
   @Prop()
   userName: string;
@@ -18,11 +19,8 @@ export class User {
   @Prop()
   phoneNumber: string;
 
-  @Prop()
+  @Prop({ unique: [true, "Duplicate email"] })
   email: string;
-
-  @Prop()
-  accountName: string;
 
   @Prop()
   password: string;
