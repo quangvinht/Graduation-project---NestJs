@@ -12,11 +12,11 @@ export class UpdateEventDto {
   @IsString()
   description?: string;
 
-  @IsDateString()
+  @IsString()
   @IsOptional()
   startDate?: string;
 
-  @IsDateString()
+  @IsString()
   @IsOptional()
   endDate?: string;
 

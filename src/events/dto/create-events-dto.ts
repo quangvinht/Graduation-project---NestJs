@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable prettier/prettier */
 
@@ -12,13 +13,13 @@ export class CreateEventDto {
   @IsString()
   description: string;
 
-  @IsDateString()
+  @IsString()
   @IsOptional()
-  startDate: string = new Date().toISOString();
+  startDate: string = "YYYY-MM-DD";
 
-  @IsDateString()
+  @IsString()
   @IsOptional()
-  endDate: string = new Date().toISOString();
+  endDate: string = "YYYY-MM-DD";
 
   @IsNotEmpty()
   @IsString()

@@ -19,10 +19,7 @@ export class UserService {
   constructor(@InjectModel(User.name) private UserModel: Model<UserDocument>) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const { password, ...rest } = createUserDto;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const createUserWithHashPass = { ...rest, password: hashedPassword };
-    const createUser = new this.UserModel(createUserWithHashPass);
+    const createUser = new this.UserModel(createUserDto);
 
     return createUser.save();
   }

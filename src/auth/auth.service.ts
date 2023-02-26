@@ -38,16 +38,16 @@ export class AuthService {
   //   return newUser;
   // }
 
-  async validateUser(loginDtoEmail: LoginDto["email"], loginDtoPass: LoginDto["password"]): Promise<any> {
-    const user = await this.userService.findByEmail(loginDtoEmail);
+  async validateUser(email: string, pass: string): Promise<any> {
+    const user = await this.userService.findByEmail(email);
 
-    if (user && bcrypt.compare(user.password, loginDtoPass)) {
+    if (user && user.password === pass) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...result } = user;
       return user;
       // return result['_doc'];
     }
-    throw new HttpException("Invalid token", HttpStatus.UNAUTHORIZED);
+    return null;
   }
   async login(user: any) {
     const payload = { email: user.email, sub: user._id };

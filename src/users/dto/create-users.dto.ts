@@ -17,19 +17,20 @@ import {
 
 export class CreateUserDto {
   @IsString()
-  @IsNotEmpty()
-  userName: string;
+  @IsOptional()
+  userName?: string = "";
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumberString()
-  identifyCard: string;
+  identifyCard?: string = "000000000";
 
-  @IsDateString()
-  birthDate: string;
+  @IsString()
+  @IsOptional()
+  birthDate?: string = "YYYY-MM-DD";
 
   @IsNumberString()
-  @IsNotEmpty()
-  phoneNumber: string;
+  @IsOptional()
+  phoneNumber?: string = "00000000000";
 
   @IsEmail()
   @IsNotEmpty()
@@ -40,5 +41,6 @@ export class CreateUserDto {
   password: string;
 
   @IsString()
-  avatarUrl: string;
+  @IsOptional()
+  avatarUrl?: string = "";
 }
