@@ -13,11 +13,11 @@ export class UpdateEventDto {
   description?: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   startDate?: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   endDate?: string;
 
   @IsOptional()
@@ -27,4 +27,7 @@ export class UpdateEventDto {
   @IsBooleanString()
   @IsOptional()
   status?: string;
+
+  @IsOptional()
+  participants?: string[];
 }

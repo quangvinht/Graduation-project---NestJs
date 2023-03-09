@@ -13,13 +13,13 @@ export class CreateEventDto {
   @IsString()
   description: string;
 
-  @IsString()
-  @IsOptional()
-  startDate: string = "YYYY-MM-DD";
+  @IsDateString()
+  @IsNotEmpty()
+  startDate: string;
 
-  @IsString()
-  @IsOptional()
-  endDate: string = "YYYY-MM-DD";
+  @IsDateString()
+  @IsNotEmpty()
+  endDate: string;
 
   @IsNotEmpty()
   @IsString()
@@ -28,4 +28,7 @@ export class CreateEventDto {
   @IsBooleanString()
   @IsOptional()
   status: "true";
+
+  @IsOptional()
+  participants?: string[];
 }

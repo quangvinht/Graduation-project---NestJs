@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, ObjectId } from "mongoose";
+import { User } from "src/users/schemas/users.schema";
 import { CreateEventDto } from "./dto/create-events-dto";
 import { UpdateEventDto } from "./dto/update-events-dto";
 import { Events, EventsDocument } from "./schemas/events.schema";
@@ -14,20 +15,23 @@ export class EventsService {
   // ) {}
   constructor(@InjectModel(Events.name) private EventModel: Model<EventsDocument>) {}
 
-  async create(createEventDto: CreateEventDto): Promise<Events> {
+  async create(createEventDto: CreateEventDto): Promise<Events | any> {
     const createEvent = new this.EventModel(createEventDto);
+    //await createEvent.populate("participants");
     return createEvent.save();
   }
   async show(_id: ObjectId): Promise<Events | any> {
-    return this.EventModel.findById(_id).populate("users").exec();
+    return this.EventModel.findById(_id).populate("participants").exec();
     //return this.EventModel.findById(_id).populate("users").exec();
   }
   async showAll(page: number, limit: number): Promise<any> {
     const data = await this.EventModel.find()
       .limit(limit)
       .skip(limit * (page - 1))
-      .sort({ startDate: "desc" })
+      .sort({ startDate: "asc" })
+      .populate("participants")
       .exec();
+
     const count = await this.EventModel.count();
     return { data: data, total: count };
     //return this.EventModel.find().populate("users").exec();
@@ -52,7 +56,8 @@ export class EventsService {
     })
       .limit(limit)
       .skip(limit * (page - 1))
-      .sort({ postDate: "desc" })
+      .sort({ startDate: "asc" })
+      .populate("participants")
       .exec();
     const count = await this.EventModel.find({
       $or: [

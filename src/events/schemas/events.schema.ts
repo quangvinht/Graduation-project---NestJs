@@ -5,11 +5,15 @@ import * as mongoose from "mongoose";
 import { HydratedDocument } from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { User } from "src/users/schemas/users.schema";
+import { Transform, Type } from "class-transformer";
 
 export type EventsDocument = HydratedDocument<Events>;
 
 @Schema()
 export class Events {
+  @Transform(({ value }) => value.toString())
+  _id: mongoose.ObjectId;
+
   @Prop()
   title: string;
 
@@ -31,8 +35,9 @@ export class Events {
   @Prop()
   status: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "User" })
-  users: User;
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: User.name }] })
+  //@Type(() => User)
+  participants: User[];
 }
 
 export const EventsSchema = SchemaFactory.createForClass(Events);

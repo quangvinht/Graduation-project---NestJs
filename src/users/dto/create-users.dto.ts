@@ -24,9 +24,9 @@ export class CreateUserDto {
   @IsNumberString()
   identifyCard?: string = "000000000";
 
-  @IsString()
+  @IsDateString()
   @IsOptional()
-  birthDate?: string = "YYYY-MM-DD";
+  birthDate: string;
 
   @IsNumberString()
   @IsOptional()
