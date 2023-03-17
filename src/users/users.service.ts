@@ -27,13 +27,21 @@ export class UserService {
     // return this.UserModel.findById(_id).populate("recruits").populate("news").exec();
     return this.UserModel.findById(_id).exec();
   }
-  async showAll(page: number, limit: number): Promise<User[]> {
+  async showAll(page: number, limit: number): Promise<any> {
     //return this.UserModel.find().populate("recruits").populate("news").exec();
-    return this.UserModel.find()
+
+    const data = await this.UserModel.find()
       .limit(limit)
       .skip(limit * (page - 1))
       .sort({ userName: "desc" })
       .exec();
+
+    const count = await this.UserModel.count();
+    return { data: data, total: count };
+  }
+  async showAllTotal(): Promise<User[]> {
+    //return this.UserModel.find().populate("recruits").populate("news").exec();
+    return this.UserModel.find().sort({ userName: "desc" }).exec();
   }
 
   async update(updateUserDto: UpdateUserDto, _id: ObjectId): Promise<User> {
@@ -79,8 +87,8 @@ export class UserService {
   //   return this.UserModel.findOne({ accountName });
   // }
 
-  async search(keyWord: any, limit: number, page: number): Promise<User[]> {
-    return this.UserModel.find({
+  async search(keyWord: any, limit: number, page: number): Promise<any> {
+    const data = await this.UserModel.find({
       $or: [
         { email: { $regex: keyWord, $options: "i" } },
         { phoneNumber: { $regex: keyWord, $options: "i" } },
@@ -92,5 +100,7 @@ export class UserService {
       .skip(limit * (page - 1))
       .sort({ userName: "desc" })
       .exec();
+    const count = await this.UserModel.count();
+    return { data: data, total: count };
   }
 }

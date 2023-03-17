@@ -10,7 +10,7 @@ import { User } from "./schemas/users.schema";
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Get(":_id")
+  @Get("/all/:_id")
   showUser(@Param() _id: ObjectId): Promise<User> {
     return this.userService.show(_id);
   }
@@ -18,6 +18,11 @@ export class UserController {
   showAllUser(@Query("limit", ParseIntPipe) limit: number, @Query("page", ParseIntPipe) page: number): Promise<User[]> {
     return this.userService.showAll(page, limit);
   }
+  @Get("/all")
+  total(): Promise<any> {
+    return this.userService.showAllTotal();
+  }
+
   @Get("/search/:keyWord")
   searchUser(
     @Param("keyWord") keyWord: any,
@@ -32,12 +37,12 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  @Patch(":_id")
+  @Patch("/all/:_id")
   updateUser(@Body() updateUserDto: UpdateUserDto, @Param() _id: ObjectId): Promise<User> {
     return this.userService.update(updateUserDto, _id);
   }
 
-  @Delete(":_id")
+  @Delete("/all/:_id")
   deleteUser(@Param() _id: ObjectId): Promise<User> {
     return this.userService.delete(_id);
   }

@@ -29,6 +29,7 @@ export class CreateEventDto {
   @IsOptional()
   status: "true";
 
+  @IsNotEmpty()
   @IsOptional()
-  participants?: string[];
+  participants: string[];
 }

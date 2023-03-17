@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable prettier/prettier */
-import { IsArray, IsBooleanString, IsDateString, IsEmail, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsArray, IsBooleanString, IsDateString, IsEmail, IsOptional, IsString } from "class-validator";
 
 export class UpdateEventDto {
   @IsString()
@@ -13,11 +13,11 @@ export class UpdateEventDto {
   description?: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   startDate?: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   endDate?: string;
 
   @IsOptional()
