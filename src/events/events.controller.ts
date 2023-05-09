@@ -9,7 +9,7 @@ import { Events } from "./schemas/events.schema";
 @Controller("event")
 export class EventsController {
   constructor(private eventsService: EventsService) {}
-  @Get(":_id")
+  @Get("/all/:_id")
   showEvent(@Param() _id: ObjectId): Promise<Events> {
     return this.eventsService.show(_id);
   }
@@ -19,6 +19,10 @@ export class EventsController {
     @Query("page", ParseIntPipe) page: number,
   ): Promise<Events[]> {
     return this.eventsService.showAll(page, limit);
+  }
+  @Get("/all")
+  total(): Promise<any> {
+    return this.eventsService.showAllTotal();
   }
   @Get("/search/:keyWord")
   searchEvent(
@@ -32,11 +36,11 @@ export class EventsController {
   storeEvent(@Body() creteEventDto: CreateEventDto): Promise<Events> {
     return this.eventsService.create(creteEventDto);
   }
-  @Patch(":_id")
+  @Patch("/all/:_id")
   updateEvent(@Param() _id: ObjectId, @Body() updateEventDto: UpdateEventDto): Promise<Events> {
     return this.eventsService.update(_id, updateEventDto);
   }
-  @Delete(":_id")
+  @Delete("/all/:_id")
   deleteEvent(@Param() _id: ObjectId): Promise<Events> {
     return this.eventsService.delete(_id);
   }

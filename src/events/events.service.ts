@@ -36,6 +36,11 @@ export class EventsService {
     return { data: data, total: count };
     //return this.EventModel.find().populate("users").exec();
   }
+
+  async showAllTotal(): Promise<any> {
+    return this.EventModel.find().sort({ title: "desc" }).exec();
+    //return this.EventModel.find().populate("users").exec();
+  }
   // async paginate(options: IPaginationOptions): Promise<Pagination<Events>> {
   //   const qb = this.EventModel.createQueryBuilder("q");
   //   return paginate<Events>(qb, options);

@@ -34,6 +34,7 @@ export class UserService {
       .limit(limit)
       .skip(limit * (page - 1))
       .sort({ userName: "desc" })
+      //.populate("eventsJoined")
       .exec();
 
     const count = await this.UserModel.count();
@@ -41,7 +42,12 @@ export class UserService {
   }
   async showAllTotal(): Promise<User[]> {
     //return this.UserModel.find().populate("recruits").populate("news").exec();
-    return this.UserModel.find().sort({ userName: "desc" }).exec();
+    return (
+      this.UserModel.find()
+        .sort({ userName: "desc" })
+        // .populate("eventsJoined")
+        .exec()
+    );
   }
 
   async update(updateUserDto: UpdateUserDto, _id: ObjectId): Promise<User> {
@@ -99,6 +105,7 @@ export class UserService {
       .limit(limit)
       .skip(limit * (page - 1))
       .sort({ userName: "desc" })
+      //.populate("eventsJoined")
       .exec();
     const count = await this.UserModel.count();
     return { data: data, total: count };
