@@ -13,6 +13,7 @@ import { EventsModule } from "./events/events.module";
 @Module({
   imports: [
     MongooseModule.forRoot("mongodb+srv://vinh:teo0966533714@cluster0.zl2ae4t.mongodb.net/graduation-project"),
+  
     UserModule,
     AuthModule,
     ProfileModule,
