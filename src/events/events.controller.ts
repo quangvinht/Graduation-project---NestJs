@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query } from "@nestjs/common";
 import { ObjectId } from "mongoose";
-import { User } from "src/users/schemas/users.schema";
+//import { User } from "src/users/schemas/users.schema";
 import { CreateEventDto } from "./dto/create-events-dto";
 import { UpdateEventDto } from "./dto/update-events-dto";
 import { EventsService } from "./events.service";

@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, ObjectId } from "mongoose";
-import { User } from "src/users/schemas/users.schema";
+//import { User } from "src/users/schemas/users.schema";
 import { CreateEventDto } from "./dto/create-events-dto";
 import { UpdateEventDto } from "./dto/update-events-dto";
 import { Events, EventsDocument } from "./schemas/events.schema";

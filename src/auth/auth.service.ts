@@ -2,7 +2,7 @@
 
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 
-import { UserService } from "src/users/users.service";
+//import { UserService } from "src/users/users.service";
 import { LoginDto } from "./dto/login-dto";
 import { JwtService } from "@nestjs/jwt";
 
@@ -10,7 +10,7 @@ import { JwtService } from "@nestjs/jwt";
 export class AuthService {
   constructor(
     // @InjectModel(User.name) private UserModel: Model<UserDocument>,
-    private userService: UserService,
+    //private userService: UserService,
     private jwtService: JwtService,
   ) {}
 
@@ -31,17 +31,17 @@ export class AuthService {
   //   return newUser;
   // }
 
-  async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.userService.findByEmail(email);
+  // async validateUser(email: string, pass: string): Promise<any> {
+  //   const user = await this.userService.findByEmail(email);
 
-    if (user && user.password === pass) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...result } = user;
-      return user;
-      // return result['_doc'];
-    }
-    return null;
-  }
+  //   if (user && user.password === pass) {
+  //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  //     const { password, ...result } = user;
+  //     return user;
+  //     // return result['_doc'];
+  //   }
+  //   return null;
+  // }
   async login(user: any) {
     const payload = { email: user.email, sub: user._id };
     return {

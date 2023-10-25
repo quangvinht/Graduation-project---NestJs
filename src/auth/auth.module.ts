@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Module } from "@nestjs/common";
-import { UserModule } from "src/users/users.module";
+//import { UserModule } from "src/users/users.module";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { PassportModule } from "@nestjs/passport";
@@ -9,13 +9,13 @@ import { JwtModule } from "@nestjs/jwt";
 import { jwtConstants } from "./constants";
 import { JwtStrategy } from "./jwt.strategy";
 import { MongooseModule } from "@nestjs/mongoose";
-import { User, UserSchema } from "./../users/schemas/users.schema";
-import { UserService } from "src/users/users.service";
+//import { User, UserSchema } from "./../users/schemas/users.schema";
+//import { UserService } from "src/users/users.service";
 
 @Module({
   controllers: [AuthController],
   imports: [
-    UserModule,
+    //UserModule,
 
     PassportModule,
     JwtModule.register({
