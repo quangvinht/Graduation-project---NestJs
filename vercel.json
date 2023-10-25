@@ -1,5 +1,6 @@
 {
     "version": 2,
+ 
     "builds": [
         {
             "src": "src/main.ts",
@@ -15,11 +16,7 @@
                 "POST",
                 "PUT",
                 "PATCH",
-                "OPTIONS",
-                "DELETE",
-                "HEAD",
-                "CONNECT",
-                "TRACE"
+                "DELETE"
             ]
         }
     ]
